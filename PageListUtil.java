@@ -6,22 +6,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.poi.ss.formula.functions.T;
-
 import com.cetc.cloudadapter.framework.core.model.PageResult;
 
 /**
  * List集合分页工具类
+ * 
  * @ClassName: PageListUtil
  * @Description: TODO(这里用一句话描述这个类的作用)
- * @Author	吴明涛
- * @Phone   17346519691
- * @Email   wmtxg@126.com
- * @Date 2020年11月19日 下午1:13:21 
+ * @Author 吴明涛
+ * @Phone 17346519691
+ * @Email wmtxg@126.com
+ * @Date 2020年11月19日 下午1:13:21
  *
  * @param <T>
  */
-@SuppressWarnings("hiding")
 public class PageListUtil<T> {
 
 	/**
@@ -29,15 +27,17 @@ public class PageListUtil<T> {
 	 * 
 	 * @param targetList 目标排序List
 	 * @param sortField  排序字段的get方法名，如：按name排序则传getName
-	 * @param sortMode   排序方式 desc-倒序	其他-正序
+	 * @param sortMode   排序方式 desc-倒序 其他-正序
 	 * @Author 吴明涛
 	 * @Phone 17346519691
 	 * @Email wmtxg@126.com
 	 * @Date 2020年11月19日 上午11:11:42 Copyright (c) All Rights Reserved, 2020.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static <T> void sort(List<T> targetList, final String sortField, final String sortMode) {
-		Collections.sort(targetList, new Comparator() {
+	public static <T> void sort(List<T> list, final String sortField, final String sortMode) {
+		if (list == null || list.isEmpty())
+			return;
+		Collections.sort(list, new Comparator() {
 
 			public int compare(Object obj1, Object obj2) {
 				int retVal = 0;
@@ -76,7 +76,7 @@ public class PageListUtil<T> {
 	public static <T> PageResult<T> page(List<T> list, Integer pageNum, Integer pageSize) {
 
 		PageResult<T> pageResult = new PageResult<>();
-		if (list.isEmpty()) {
+		if (list == null || list.isEmpty()) {
 			pageResult.setPageNo(pageNum);
 			pageResult.setPageSize(pageSize);
 			pageResult.setTotalCount(0);
